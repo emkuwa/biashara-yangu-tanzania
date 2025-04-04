@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { 
   Accordion, 
   AccordionContent, 
@@ -29,16 +29,15 @@ import {
   formatCurrency,
   type BusinessIdea
 } from '@/data/businessIdeas';
-import { Briefcase, CheckCircle, Search } from 'lucide-react';
+import { Briefcase, CheckCircle, Search, FileText } from 'lucide-react';
 
 const BusinessIdeasPage = () => {
   const navigate = useNavigate();
-  const location = useLocation();
   
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [capitalRange, setCapitalRange] = useState<[number, number]>([0, 10000000]);
-  const [selectedDifficulty, setSelectedDifficulty] = useState('all');
+  const [selectedType, setSelectedType] = useState('all');
   const [filteredIdeas, setFilteredIdeas] = useState<BusinessIdea[]>(businessIdeas);
   const [currentView, setCurrentView] = useState<'grid' | 'list'>('grid');
   
@@ -48,10 +47,10 @@ const BusinessIdeasPage = () => {
       searchTerm,
       selectedCategory === 'all' ? '' : selectedCategory,
       capitalRange,
-      selectedDifficulty === 'all' ? undefined : selectedDifficulty
+      selectedType === 'all' ? undefined : selectedType
     );
     setFilteredIdeas(filtered);
-  }, [searchTerm, selectedCategory, capitalRange, selectedDifficulty]);
+  }, [searchTerm, selectedCategory, capitalRange, selectedType]);
   
   // Handle search input change
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -63,9 +62,9 @@ const BusinessIdeasPage = () => {
     setSelectedCategory(value);
   };
   
-  // Handle difficulty selection
-  const handleDifficultyChange = (value: string) => {
-    setSelectedDifficulty(value);
+  // Handle type selection
+  const handleTypeChange = (value: string) => {
+    setSelectedType(value);
   };
   
   // Handle capital range slider change
@@ -83,18 +82,18 @@ const BusinessIdeasPage = () => {
     setSearchTerm('');
     setSelectedCategory('all');
     setCapitalRange([0, 10000000]);
-    setSelectedDifficulty('all');
+    setSelectedType('all');
   };
   
-  // Get difficulty color
-  const getDifficultyColor = (difficulty: string) => {
-    switch(difficulty) {
-      case 'Rahisi':
+  // Get type color
+  const getTypeColor = (type: string) => {
+    switch(type) {
+      case 'Bidhaa':
+        return 'bg-blue-100 text-blue-800';
+      case 'Huduma':
         return 'bg-green-100 text-green-800';
-      case 'Wastani':
-        return 'bg-yellow-100 text-yellow-800';
-      case 'Ngumu':
-        return 'bg-red-100 text-red-800';
+      case 'Mchanganyiko':
+        return 'bg-purple-100 text-purple-800';
       default:
         return 'bg-gray-100 text-gray-800';
     }
@@ -151,16 +150,16 @@ const BusinessIdeasPage = () => {
                 </SelectContent>
               </Select>
               
-              {/* Difficulty Filter */}
-              <Select value={selectedDifficulty} onValueChange={handleDifficultyChange}>
+              {/* Type Filter */}
+              <Select value={selectedType} onValueChange={handleTypeChange}>
                 <SelectTrigger>
-                  <SelectValue placeholder="Ugumu" />
+                  <SelectValue placeholder="Aina" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">Ugumu Wowote</SelectItem>
-                  <SelectItem value="Rahisi">Rahisi</SelectItem>
-                  <SelectItem value="Wastani">Wastani</SelectItem>
-                  <SelectItem value="Ngumu">Ngumu</SelectItem>
+                  <SelectItem value="all">Aina Zote</SelectItem>
+                  <SelectItem value="Bidhaa">Bidhaa</SelectItem>
+                  <SelectItem value="Huduma">Huduma</SelectItem>
+                  <SelectItem value="Mchanganyiko">Mchanganyiko</SelectItem>
                 </SelectContent>
               </Select>
               
@@ -201,8 +200,8 @@ const BusinessIdeasPage = () => {
                         <Badge variant="outline" className="bg-blue-50 text-tz-blue border-blue-200">
                           {idea.category}
                         </Badge>
-                        <Badge className={getDifficultyColor(idea.difficulty)}>
-                          {idea.difficulty}
+                        <Badge className={getTypeColor(idea.type)}>
+                          {idea.type}
                         </Badge>
                       </div>
                       <h3 className="text-xl font-semibold mb-2">{idea.title}</h3>
@@ -211,12 +210,22 @@ const BusinessIdeasPage = () => {
                         <p><span className="font-medium">Mtaji:</span> {formatCurrency(idea.minCapital)} - {formatCurrency(idea.maxCapital)}</p>
                         <p><span className="font-medium">Muda wa Faida:</span> {idea.timeToProfit}</p>
                       </div>
-                      <Button 
-                        className="w-full bg-tz-blue hover:bg-blue-600"
-                        onClick={() => navigate(`/biashara/${idea.id}`)}
-                      >
-                        Angalia Zaidi
-                      </Button>
+                      <div className="space-y-2">
+                        <Button 
+                          className="w-full bg-tz-blue hover:bg-blue-600"
+                          onClick={() => navigate(`/biashara/${idea.id}`)}
+                        >
+                          Angalia Zaidi
+                        </Button>
+                        <Button 
+                          className="w-full bg-tz-green hover:bg-green-600"
+                          variant="outline"
+                          onClick={() => navigate(`/biashara/${idea.id}?tab=mpango`)}
+                        >
+                          <FileText className="mr-2 h-4 w-4" />
+                          Mpango wa Biashara
+                        </Button>
+                      </div>
                     </div>
                   </CardContent>
                 </Card>
@@ -244,8 +253,8 @@ const BusinessIdeasPage = () => {
                               <Badge variant="outline" className="bg-blue-50 text-tz-blue border-blue-200">
                                 {idea.category}
                               </Badge>
-                              <Badge className={getDifficultyColor(idea.difficulty)}>
-                                {idea.difficulty}
+                              <Badge className={getTypeColor(idea.type)}>
+                                {idea.type}
                               </Badge>
                             </div>
                           </div>
@@ -297,12 +306,19 @@ const BusinessIdeasPage = () => {
                           </ul>
                         </div>
                         
-                        <div className="mt-4">
+                        <div className="mt-4 flex flex-col md:flex-row gap-3">
+                          <Button 
+                            className="bg-tz-blue hover:bg-blue-600"
+                            onClick={() => navigate(`/biashara/${idea.id}`)}
+                          >
+                            Angalia Zaidi
+                          </Button>
                           <Button 
                             className="bg-tz-green hover:bg-green-600"
-                            onClick={() => navigate(`/mpango`)}
+                            onClick={() => navigate(`/biashara/${idea.id}?tab=mpango`)}
                           >
-                            Tengeneza Mpango wa Biashara
+                            <FileText className="mr-2 h-4 w-4" />
+                            Mpango wa Biashara
                           </Button>
                         </div>
                       </div>

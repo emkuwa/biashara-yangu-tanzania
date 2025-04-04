@@ -1,6 +1,7 @@
+
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Book, Home, FileText, Briefcase, HelpCircle } from 'lucide-react';
+import { Menu, X, Book, Home, Briefcase, HelpCircle, UserPlus } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { cn } from '@/lib/utils';
 
@@ -11,7 +12,6 @@ const NavBar = () => {
   const navItems = [
     { name: 'Nyumbani', path: '/', icon: Home },
     { name: 'Biashara', path: '/biashara', icon: Briefcase },
-    { name: 'Mpango wa Biashara', path: '/mpango', icon: FileText },
     { name: 'Mafunzo', path: '/mafunzo', icon: Book },
     { name: 'Usaidizi', path: '/usaidizi', icon: HelpCircle }
   ];
@@ -55,6 +55,13 @@ const NavBar = () => {
                 </Link>
               );
             })}
+            <Link
+              to="/sajili"
+              className="ml-4 bg-tz-blue text-white px-4 py-2 rounded-md text-sm font-medium flex items-center space-x-1 hover:bg-blue-600 transition-colors"
+            >
+              <UserPlus size={18} />
+              <span>Jisajili</span>
+            </Link>
           </div>
           
           {/* Mobile menu button */}
@@ -94,6 +101,14 @@ const NavBar = () => {
                 </Link>
               );
             })}
+            <Link
+              to="/sajili"
+              className="block px-3 py-2 rounded-md text-base font-medium flex items-center space-x-2 bg-tz-blue text-white hover:bg-blue-600"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              <UserPlus size={20} />
+              <span>Jisajili</span>
+            </Link>
           </div>
         </div>
       )}
