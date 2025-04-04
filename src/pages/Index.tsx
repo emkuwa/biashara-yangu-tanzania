@@ -1,12 +1,16 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import NavBar from '@/components/NavBar';
 import Footer from '@/components/Footer';
-import { ArrowRight, Book, Briefcase, FileText, Info } from 'lucide-react';
+import { ArrowRight, Book, Briefcase, FileText, MessageSquare, Users, Text } from 'lucide-react';
+import { useAuth } from '@/context/AuthContext';
 
 const Index = () => {
+  const { isAuthenticated } = useAuth();
+  
   return (
     <div className="min-h-screen flex flex-col">
       <NavBar />
@@ -26,7 +30,7 @@ const Index = () => {
                 <Link to="/biashara">Tazama Mawazo ya Biashara</Link>
               </Button>
               <Button asChild variant="outline" className="border-tz-blue text-tz-blue hover:bg-blue-50 font-medium text-lg px-6 py-5 rounded-md">
-                <Link to="/mpango">Tengeneza Mpango wa Biashara</Link>
+                <Link to={isAuthenticated ? "/chatbot" : "/sajili"}>Pata Ushauri wa Biashara</Link>
               </Button>
             </div>
           </div>
@@ -62,24 +66,24 @@ const Index = () => {
                 </CardFooter>
               </Card>
               
-              {/* Business Plan Card */}
+              {/* Community Card */}
               <Card className="hover:shadow-lg transition-shadow">
                 <CardHeader>
                   <div className="bg-blue-100 w-12 h-12 rounded-full flex items-center justify-center mb-4">
-                    <FileText className="text-tz-blue" size={24} />
+                    <Users className="text-tz-blue" size={24} />
                   </div>
-                  <CardTitle>Mpango wa Biashara</CardTitle>
-                  <CardDescription>Tengeneza mpango wa biashara bora na wa kitaalamu</CardDescription>
+                  <CardTitle>Jamii ya Wajasiriamali</CardTitle>
+                  <CardDescription>Unganika na wajasiriamali wengine kubadilishana mawazo</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <p className="text-gray-700">
-                    Tumia zana yetu ya kutengeneza mpango wa biashara kuandaa mpango unaokidhi viwango vya benki na wawekezaji. Jaza tu taarifa na sisi tutatoa mpango mzuri.
+                    Jukwaa letu la jamii linakupa nafasi ya kushiriki uzoefu wako, kuuliza maswali, na kujifunza kutoka kwa wajasiriamali wengine Tanzania.
                   </p>
                 </CardContent>
                 <CardFooter>
                   <Button asChild variant="ghost" className="text-tz-blue hover:text-tz-blue hover:bg-blue-50 p-0 flex items-center">
-                    <Link to="/mpango" className="flex items-center">
-                      <span>Tengeneza Mpango wa Biashara</span>
+                    <Link to={isAuthenticated ? "/jamii" : "/sajili"} className="flex items-center">
+                      <span>Jiunge na Jamii</span>
                       <ArrowRight size={16} className="ml-2" />
                     </Link>
                   </Button>
@@ -102,8 +106,82 @@ const Index = () => {
                 </CardContent>
                 <CardFooter>
                   <Button asChild variant="ghost" className="text-tz-gold hover:text-tz-gold hover:bg-yellow-50 p-0 flex items-center">
-                    <Link to="/mafunzo" className="flex items-center">
+                    <Link to={isAuthenticated ? "/mafunzo" : "/sajili"} className="flex items-center">
                       <span>Angalia Mafunzo na Rasilimali</span>
+                      <ArrowRight size={16} className="ml-2" />
+                    </Link>
+                  </Button>
+                </CardFooter>
+              </Card>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
+              {/* Chatbot Card */}
+              <Card className="hover:shadow-lg transition-shadow">
+                <CardHeader>
+                  <div className="bg-purple-100 w-12 h-12 rounded-full flex items-center justify-center mb-4">
+                    <MessageSquare className="text-purple-600" size={24} />
+                  </div>
+                  <CardTitle>Chatbot wa Ushauri</CardTitle>
+                  <CardDescription>Pata majibu ya maswali yako ya biashara kwa haraka</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-gray-700">
+                    Chatbot wetu wa AI itatoa ushauri wa kibiashara kama vile jinsi ya kushughulikia changamoto za biashara, maswala ya kodi, na uongozi.
+                  </p>
+                </CardContent>
+                <CardFooter>
+                  <Button asChild variant="ghost" className="text-purple-600 hover:text-purple-600 hover:bg-purple-50 p-0 flex items-center">
+                    <Link to={isAuthenticated ? "/chatbot" : "/sajili"} className="flex items-center">
+                      <span>Pata Ushauri wa Biashara</span>
+                      <ArrowRight size={16} className="ml-2" />
+                    </Link>
+                  </Button>
+                </CardFooter>
+              </Card>
+              
+              {/* Name Generator Card */}
+              <Card className="hover:shadow-lg transition-shadow">
+                <CardHeader>
+                  <div className="bg-pink-100 w-12 h-12 rounded-full flex items-center justify-center mb-4">
+                    <Text className="text-pink-600" size={24} />
+                  </div>
+                  <CardTitle>Generator ya Majina</CardTitle>
+                  <CardDescription>Pata jina linalovutia na linaloweza kutambulika kirahisi</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-gray-700">
+                    Programu yetu itatoa orodha ya majina ya biashara kulingana na sekta ya biashara unayotaka kuanzisha. Jina zuri ni muhimu kwa biashara yako!
+                  </p>
+                </CardContent>
+                <CardFooter>
+                  <Button asChild variant="ghost" className="text-pink-600 hover:text-pink-600 hover:bg-pink-50 p-0 flex items-center">
+                    <Link to={isAuthenticated ? "/jina" : "/sajili"} className="flex items-center">
+                      <span>Tengeneza Jina la Biashara</span>
+                      <ArrowRight size={16} className="ml-2" />
+                    </Link>
+                  </Button>
+                </CardFooter>
+              </Card>
+              
+              {/* Registration Card */}
+              <Card className="hover:shadow-lg transition-shadow">
+                <CardHeader>
+                  <div className="bg-red-100 w-12 h-12 rounded-full flex items-center justify-center mb-4">
+                    <FileText className="text-red-600" size={24} />
+                  </div>
+                  <CardTitle>Jisajili Leo</CardTitle>
+                  <CardDescription>Pata huduma zote za kipekee bila malipo</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-gray-700">
+                    Jiunge na Biashara Yangu kupata huduma zote, ikiwemo mipango ya biashara, majadiliano na wajasiriamali wengine, na mafunzo ya kipekee.
+                  </p>
+                </CardContent>
+                <CardFooter>
+                  <Button asChild variant="ghost" className="text-red-600 hover:text-red-600 hover:bg-red-50 p-0 flex items-center">
+                    <Link to="/sajili" className="flex items-center">
+                      <span>Jisajili Sasa</span>
                       <ArrowRight size={16} className="ml-2" />
                     </Link>
                   </Button>
@@ -123,12 +201,12 @@ const Index = () => {
               Tuchague kama mwenza wako katika safari ya biashara. Tunaahidi kukupatia taarifa sahihi, rasilimali na usaidizi unaohitaji kufanikiwa.
             </p>
             <Button asChild className="bg-white text-tz-blue hover:bg-gray-100 font-medium text-lg px-6 py-5 rounded-md">
-              <Link to="/biashara">Anza Sasa</Link>
+              <Link to="/sajili">Anza Sasa</Link>
             </Button>
           </div>
         </section>
         
-        {/* Testimonials (Placeholder) */}
+        {/* Testimonials */}
         <section className="py-16 bg-gray-50">
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-2xl md:text-3xl font-bold mb-12">Wajasiriamali Wanasema...</h2>

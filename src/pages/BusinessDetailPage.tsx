@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate, useLocation } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -10,17 +10,16 @@ import Footer from '@/components/Footer';
 import { businessIdeas, formatCurrency } from '@/data/businessIdeas';
 import { CheckCircle, ArrowLeft, FileText, Share2 } from 'lucide-react';
 import { useToast } from "@/components/ui/use-toast";
+import { useAuth } from '@/context/AuthContext';
 
 const BusinessDetailPage = () => {
   const { businessId } = useParams<{ businessId: string }>();
   const navigate = useNavigate();
-  const location = useLocation();
   const { toast } = useToast();
+  const { isAuthenticated } = useAuth();
   
-  const searchParams = new URLSearchParams(location.search);
-  const initialTab = searchParams.get('tab') === 'mpango' ? 'business-plan' : 'details';
-  
-  const [activeTab, setActiveTab] = useState(initialTab);
+  const [activeTab, setActiveTab] = useState<'details' | 'business-plan'>('details');
+  const [showBusinessPlan, setShowBusinessPlan] = useState(false);
   
   const businessIdea = businessIdeas.find(idea => idea.id === businessId);
   
@@ -48,6 +47,19 @@ const BusinessDetailPage = () => {
         title: "Anwani imenakiliwa!",
         description: "Anwani ya tovuti imenakiliwa kwenye clipboard yako.",
       });
+    }
+  };
+  
+  const handleViewMoreClick = () => {
+    if (isAuthenticated) {
+      setShowBusinessPlan(true);
+    } else {
+      toast({
+        title: "Tafadhali jisajili kwanza",
+        description: "Unahitaji kuwa na akaunti ili uone mipango ya biashara.",
+        variant: "destructive",
+      });
+      navigate('/sajili');
     }
   };
   
@@ -96,15 +108,129 @@ const BusinessDetailPage = () => {
               <h1 className="text-3xl font-bold text-gray-800 mb-3">{businessIdea.title}</h1>
               
               <div className="bg-white rounded-lg shadow-md overflow-hidden mb-8">
-                <Tabs defaultValue={activeTab} value={activeTab} onValueChange={setActiveTab}>
-                  <div className="px-6 pt-6">
-                    <TabsList className="grid w-full grid-cols-2">
-                      <TabsTrigger value="details">Maelezo ya Biashara</TabsTrigger>
-                      <TabsTrigger value="business-plan">Mpango wa Biashara</TabsTrigger>
-                    </TabsList>
-                  </div>
-                  
-                  <TabsContent value="details" className="p-6">
+                {showBusinessPlan ? (
+                  <Tabs defaultValue={activeTab} value={activeTab} onValueChange={(value) => setActiveTab(value as 'details' | 'business-plan')}>
+                    <div className="px-6 pt-6">
+                      <TabsList className="grid w-full grid-cols-2">
+                        <TabsTrigger value="details">Maelezo ya Biashara</TabsTrigger>
+                        <TabsTrigger value="business-plan">Mpango wa Biashara</TabsTrigger>
+                      </TabsList>
+                    </div>
+                    
+                    <TabsContent value="details" className="p-6">
+                      {/* Details Tab Content */}
+                      <div className="prose max-w-none">
+                        <p className="text-lg text-gray-700 mb-6">{businessIdea.description}</p>
+                        
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                          <Card className="border-l-4 border-tz-blue">
+                            <CardHeader className="pb-2">
+                              <CardTitle className="text-lg">Mtaji Unaohitajika</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                              <p className="text-gray-700 text-lg font-semibold">
+                                {formatCurrency(businessIdea.minCapital)} - {formatCurrency(businessIdea.maxCapital)}
+                              </p>
+                            </CardContent>
+                          </Card>
+                          
+                          <Card className="border-l-4 border-tz-green">
+                            <CardHeader className="pb-2">
+                              <CardTitle className="text-lg">Muda wa Kuanza Kupata Faida</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                              <p className="text-gray-700 text-lg font-semibold">
+                                {businessIdea.timeToProfit}
+                              </p>
+                            </CardContent>
+                          </Card>
+                        </div>
+                        
+                        <h2 className="text-xl font-semibold text-gray-800 mb-4 border-b pb-2">Hatua za Kuanza</h2>
+                        <ul className="space-y-3 mb-8">
+                          {businessIdea.steps.map((step, index) => (
+                            <li key={index} className="flex items-start">
+                              <div className="bg-tz-green text-white rounded-full h-6 w-6 flex items-center justify-center flex-shrink-0 mt-0.5 mr-3">
+                                <span className="font-medium text-sm">{index + 1}</span>
+                              </div>
+                              <span className="text-gray-700">{step}</span>
+                            </li>
+                          ))}
+                        </ul>
+                        
+                        <h2 className="text-xl font-semibold text-gray-800 mb-4 border-b pb-2">Mahitaji</h2>
+                        <ul className="space-y-3 mb-8">
+                          {businessIdea.requirements.map((req, index) => (
+                            <li key={index} className="flex items-start">
+                              <CheckCircle className="text-tz-blue mr-3 mt-1 flex-shrink-0" size={18} />
+                              <span className="text-gray-700">{req}</span>
+                            </li>
+                          ))}
+                        </ul>
+                        
+                        <h2 className="text-xl font-semibold text-gray-800 mb-4 border-b pb-2">Vidokezo vya Mafanikio</h2>
+                        <ul className="space-y-3 mb-8">
+                          {businessIdea.tips.map((tip, index) => (
+                            <li key={index} className="flex items-start">
+                              <CheckCircle className="text-tz-gold mr-3 mt-1 flex-shrink-0" size={18} />
+                              <span className="text-gray-700">{tip}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                      
+                      <div className="border-t pt-6 mt-8">
+                        <h3 className="text-lg font-semibold mb-4">Je, upo tayari kuanza biashara hii?</h3>
+                        <div className="flex flex-wrap gap-3">
+                          <Button className="bg-tz-blue hover:bg-blue-600" onClick={() => setActiveTab('business-plan')}>
+                            <FileText className="mr-2 h-4 w-4" />
+                            Angalia Mpango wa Biashara
+                          </Button>
+                          <Button variant="outline" onClick={handleShareClick}>
+                            <Share2 className="mr-2 h-4 w-4" />
+                            Shiriki Biashara Hii
+                          </Button>
+                        </div>
+                      </div>
+                    </TabsContent>
+                    
+                    <TabsContent value="business-plan" className="p-6">
+                      {/* Business Plan Tab Content */}
+                      <div className="prose max-w-none">
+                        <div className="mb-6 border-b pb-4">
+                          <h2 className="text-2xl font-bold text-tz-blue mb-2">Mpango wa Biashara: {businessIdea.title}</h2>
+                          <p className="text-gray-600">Mpango huu wa biashara umeandaliwa kukusaidia kuanza biashara hii.</p>
+                        </div>
+                        
+                        {businessIdea.businessPlan ? (
+                          <div className="whitespace-pre-wrap bg-gray-50 p-6 rounded-lg border text-gray-700">
+                            {businessIdea.businessPlan}
+                          </div>
+                        ) : (
+                          <div className="text-center py-8 bg-gray-50 rounded-lg">
+                            <FileText className="mx-auto text-gray-400 mb-4" size={64} />
+                            <h3 className="text-xl font-semibold mb-2">Mpango wa biashara haujapatikana</h3>
+                            <p className="text-gray-600 mb-4">Tunapenda kuomba samahani, mpango wa biashara kwa biashara hii haujapatikana bado.</p>
+                          </div>
+                        )}
+                        
+                        <div className="border-t pt-6 mt-8">
+                          <h3 className="text-lg font-semibold mb-4">Nenda Hatua Inayofuata:</h3>
+                          <div className="flex flex-wrap gap-3">
+                            <Button className="bg-tz-green hover:bg-green-600" onClick={() => navigate('/sajili')}>
+                              Jisajili na Anza Sasa
+                            </Button>
+                            <Button variant="outline" onClick={handleShareClick}>
+                              <Share2 className="mr-2 h-4 w-4" />
+                              Shiriki Mpango Huu
+                            </Button>
+                          </div>
+                        </div>
+                      </div>
+                    </TabsContent>
+                  </Tabs>
+                ) : (
+                  <div className="p-6">
                     <div className="prose max-w-none">
                       <p className="text-lg text-gray-700 mb-6">{businessIdea.description}</p>
                       
@@ -132,88 +258,20 @@ const BusinessDetailPage = () => {
                         </Card>
                       </div>
                       
-                      <h2 className="text-xl font-semibold text-gray-800 mb-4 border-b pb-2">Hatua za Kuanza</h2>
-                      <ul className="space-y-3 mb-8">
-                        {businessIdea.steps.map((step, index) => (
-                          <li key={index} className="flex items-start">
-                            <div className="bg-tz-green text-white rounded-full h-6 w-6 flex items-center justify-center flex-shrink-0 mt-0.5 mr-3">
-                              <span className="font-medium text-sm">{index + 1}</span>
-                            </div>
-                            <span className="text-gray-700">{step}</span>
-                          </li>
-                        ))}
-                      </ul>
-                      
-                      <h2 className="text-xl font-semibold text-gray-800 mb-4 border-b pb-2">Mahitaji</h2>
-                      <ul className="space-y-3 mb-8">
-                        {businessIdea.requirements.map((req, index) => (
-                          <li key={index} className="flex items-start">
-                            <CheckCircle className="text-tz-blue mr-3 mt-1 flex-shrink-0" size={18} />
-                            <span className="text-gray-700">{req}</span>
-                          </li>
-                        ))}
-                      </ul>
-                      
-                      <h2 className="text-xl font-semibold text-gray-800 mb-4 border-b pb-2">Vidokezo vya Mafanikio</h2>
-                      <ul className="space-y-3 mb-8">
-                        {businessIdea.tips.map((tip, index) => (
-                          <li key={index} className="flex items-start">
-                            <CheckCircle className="text-tz-gold mr-3 mt-1 flex-shrink-0" size={18} />
-                            <span className="text-gray-700">{tip}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                    
-                    <div className="border-t pt-6 mt-8">
-                      <h3 className="text-lg font-semibold mb-4">Je, upo tayari kuanza biashara hii?</h3>
-                      <div className="flex flex-wrap gap-3">
-                        <Button className="bg-tz-blue hover:bg-blue-600" onClick={() => setActiveTab('business-plan')}>
+                      <div className="text-center py-8 mb-8 bg-blue-50 rounded-lg border border-blue-200">
+                        <h3 className="text-xl font-semibold mb-4 text-tz-blue">Unataka kujua zaidi?</h3>
+                        <p className="text-gray-700 mb-5">Ili uone mpango kamili wa biashara, hatua za kuanza, mahitaji, na vidokezo vya mafanikio, bonyeza kitufe hapa chini.</p>
+                        <Button 
+                          className="bg-tz-blue hover:bg-blue-600" 
+                          onClick={handleViewMoreClick}
+                        >
                           <FileText className="mr-2 h-4 w-4" />
-                          Angalia Mpango wa Biashara
-                        </Button>
-                        <Button variant="outline" onClick={handleShareClick}>
-                          <Share2 className="mr-2 h-4 w-4" />
-                          Shiriki Biashara Hii
+                          Angalia Taarifa Zaidi
                         </Button>
                       </div>
                     </div>
-                  </TabsContent>
-                  
-                  <TabsContent value="business-plan" className="p-6">
-                    <div className="prose max-w-none">
-                      <div className="mb-6 border-b pb-4">
-                        <h2 className="text-2xl font-bold text-tz-blue mb-2">Mpango wa Biashara: {businessIdea.title}</h2>
-                        <p className="text-gray-600">Mpango huu wa biashara umeandaliwa kukusaidia kuanza biashara hii.</p>
-                      </div>
-                      
-                      {businessIdea.businessPlan ? (
-                        <div className="whitespace-pre-wrap bg-gray-50 p-6 rounded-lg border text-gray-700">
-                          {businessIdea.businessPlan}
-                        </div>
-                      ) : (
-                        <div className="text-center py-8 bg-gray-50 rounded-lg">
-                          <FileText className="mx-auto text-gray-400 mb-4" size={64} />
-                          <h3 className="text-xl font-semibold mb-2">Mpango wa biashara haujapatikana</h3>
-                          <p className="text-gray-600 mb-4">Tunapenda kuomba samahani, mpango wa biashara kwa biashara hii haujapatikana bado.</p>
-                        </div>
-                      )}
-                      
-                      <div className="border-t pt-6 mt-8">
-                        <h3 className="text-lg font-semibold mb-4">Nenda Hatua Inayofuata:</h3>
-                        <div className="flex flex-wrap gap-3">
-                          <Button className="bg-tz-green hover:bg-green-600" onClick={() => navigate('/sajili')}>
-                            Jisajili na Anza Sasa
-                          </Button>
-                          <Button variant="outline" onClick={handleShareClick}>
-                            <Share2 className="mr-2 h-4 w-4" />
-                            Shiriki Mpango Huu
-                          </Button>
-                        </div>
-                      </div>
-                    </div>
-                  </TabsContent>
-                </Tabs>
+                  </div>
+                )}
               </div>
             </div>
             
@@ -225,10 +283,17 @@ const BusinessDetailPage = () => {
                   <Button className="w-full bg-tz-green hover:bg-green-600" onClick={() => navigate('/sajili')}>
                     Jisajili na Anza Sasa
                   </Button>
-                  <Button className="w-full" variant="outline" onClick={() => setActiveTab('business-plan')}>
-                    <FileText className="mr-2 h-4 w-4" />
-                    Mpango wa Biashara
-                  </Button>
+                  {!showBusinessPlan ? (
+                    <Button className="w-full" variant="outline" onClick={handleViewMoreClick}>
+                      <FileText className="mr-2 h-4 w-4" />
+                      Angalia Taarifa Zaidi
+                    </Button>
+                  ) : (
+                    <Button className="w-full" variant="outline" onClick={() => setActiveTab('business-plan')}>
+                      <FileText className="mr-2 h-4 w-4" />
+                      Mpango wa Biashara
+                    </Button>
+                  )}
                   <Button className="w-full" variant="outline" onClick={handleShareClick}>
                     <Share2 className="mr-2 h-4 w-4" />
                     Shiriki
