@@ -1,11 +1,10 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import NavBar from '@/components/NavBar';
 import Footer from '@/components/Footer';
-import { ArrowRight, Book, BriefCase, FileText, Info } from 'lucide-react';
+import { ArrowRight, Book, Briefcase, FileText, Info } from 'lucide-react';
 
 const Index = () => {
   return (
@@ -43,7 +42,7 @@ const Index = () => {
               <Card className="hover:shadow-lg transition-shadow">
                 <CardHeader>
                   <div className="bg-green-100 w-12 h-12 rounded-full flex items-center justify-center mb-4">
-                    <BriefCase className="text-tz-green" size={24} />
+                    <Briefcase className="text-tz-green" size={24} />
                   </div>
                   <CardTitle>Mawazo ya Biashara</CardTitle>
                   <CardDescription>Pata mawazo 100+ ya biashara zinazofaa kwa mazingira ya Tanzania</CardDescription>

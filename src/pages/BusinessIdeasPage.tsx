@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { 
@@ -29,7 +28,7 @@ import {
   formatCurrency,
   type BusinessIdea
 } from '@/data/businessIdeas';
-import { BriefCase, CheckCircle, Search } from 'lucide-react';
+import { Briefcase, CheckCircle, Search } from 'lucide-react';
 
 const BusinessIdeasPage = () => {
   const navigate = useNavigate();
@@ -236,7 +235,7 @@ const BusinessIdeasPage = () => {
                       <div className="flex flex-col md:flex-row md:items-center md:justify-between w-full text-left">
                         <div className="flex items-center">
                           <div className="bg-blue-100 p-2 rounded-full mr-4">
-                            <BriefCase className="text-tz-blue" size={24} />
+                            <Briefcase className="text-tz-blue" size={24} />
                           </div>
                           <div>
                             <h3 className="text-lg font-semibold">{idea.title}</h3>
@@ -316,7 +315,7 @@ const BusinessIdeasPage = () => {
           {/* Empty State */}
           {filteredIdeas.length === 0 && (
             <div className="text-center py-12">
-              <BriefCase className="mx-auto text-gray-400 mb-4" size={64} />
+              <Briefcase className="mx-auto text-gray-400 mb-4" size={64} />
               <h3 className="text-xl font-semibold mb-2">Hakuna mawazo ya biashara yaliyopatikana</h3>
               <p className="text-gray-600 mb-4">Jaribu kubadilisha vigezo vya kutafuta</p>
               <Button variant="outline" onClick={resetFilters}>

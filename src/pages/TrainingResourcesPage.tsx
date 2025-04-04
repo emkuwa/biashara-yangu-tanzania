@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { 
   Card, 
@@ -21,7 +20,7 @@ import {
 import NavBar from '@/components/NavBar';
 import Footer from '@/components/Footer';
 import { trainingResources, categories, filterTrainingResources, type TrainingResource } from '@/data/trainingResources';
-import { Book, ExternalLink, Search, Video, FileText, Tool, Archive } from 'lucide-react';
+import { Book, ExternalLink, Search, Video, FileText, Wrench, Archive } from 'lucide-react';
 
 const TrainingResourcesPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -32,7 +31,6 @@ const TrainingResourcesPage = () => {
   const [selectedCost, setSelectedCost] = useState('');
   const [filteredResources, setFilteredResources] = useState<TrainingResource[]>(trainingResources);
   
-  // Apply filters when any filter changes
   useEffect(() => {
     const filtered = filterTrainingResources(
       searchTerm,
@@ -45,12 +43,10 @@ const TrainingResourcesPage = () => {
     setFilteredResources(filtered);
   }, [searchTerm, selectedCategory, selectedType, selectedLevel, selectedLanguage, selectedCost]);
   
-  // Handle search input change
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
   };
   
-  // Reset all filters
   const resetFilters = () => {
     setSearchTerm('');
     setSelectedCategory('');
@@ -60,7 +56,6 @@ const TrainingResourcesPage = () => {
     setSelectedCost('');
   };
   
-  // Get resource icon based on type
   const getResourceIcon = (type: string) => {
     switch(type) {
       case 'Video':
@@ -72,13 +67,12 @@ const TrainingResourcesPage = () => {
       case 'Book':
         return <Archive className="text-purple-500" size={24} />;
       case 'Tool':
-        return <Tool className="text-gray-600" size={24} />;
+        return <Wrench className="text-gray-600" size={24} />;
       default:
         return <Book className="text-tz-blue" size={24} />;
     }
   };
   
-  // Get level color
   const getLevelColor = (level: string) => {
     switch(level) {
       case 'Beginner':
@@ -92,7 +86,6 @@ const TrainingResourcesPage = () => {
     }
   };
   
-  // Get cost color
   const getCostColor = (cost: string) => {
     switch(cost) {
       case 'Free':
@@ -119,10 +112,8 @@ const TrainingResourcesPage = () => {
             </p>
           </div>
           
-          {/* Filters Section */}
           <div className="bg-white p-4 rounded-lg shadow mb-8">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
-              {/* Search Input */}
               <div className="relative xl:col-span-2">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
                 <Input
@@ -134,7 +125,6 @@ const TrainingResourcesPage = () => {
                 />
               </div>
               
-              {/* Category Filter */}
               <div>
                 <Select value={selectedCategory} onValueChange={setSelectedCategory}>
                   <SelectTrigger>
@@ -149,7 +139,6 @@ const TrainingResourcesPage = () => {
                 </Select>
               </div>
               
-              {/* Type Filter */}
               <div>
                 <Select value={selectedType} onValueChange={setSelectedType}>
                   <SelectTrigger>
@@ -166,7 +155,6 @@ const TrainingResourcesPage = () => {
                 </Select>
               </div>
               
-              {/* Level Filter */}
               <div>
                 <Select value={selectedLevel} onValueChange={setSelectedLevel}>
                   <SelectTrigger>
@@ -181,7 +169,6 @@ const TrainingResourcesPage = () => {
                 </Select>
               </div>
               
-              {/* Reset Button */}
               <div>
                 <Button variant="outline" onClick={resetFilters} className="w-full">
                   Ondoa Vigezo Vyote
@@ -190,7 +177,6 @@ const TrainingResourcesPage = () => {
             </div>
             
             <div className="flex flex-wrap gap-4 mt-4">
-              {/* Language Filter */}
               <div className="flex items-center gap-2">
                 <span className="text-sm font-medium">Lugha:</span>
                 <div className="flex gap-2">
@@ -221,7 +207,6 @@ const TrainingResourcesPage = () => {
                 </div>
               </div>
               
-              {/* Cost Filter */}
               <div className="flex items-center gap-2">
                 <span className="text-sm font-medium">Gharama:</span>
                 <div className="flex gap-2">
@@ -262,14 +247,12 @@ const TrainingResourcesPage = () => {
             </div>
           </div>
           
-          {/* Results Count */}
           <div className="mb-4">
             <p className="text-gray-600">
               Rasilimali {filteredResources.length} zimepatikana
             </p>
           </div>
           
-          {/* Training Resources Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredResources.map(resource => (
               <Card key={resource.id} className="hover:shadow-lg transition-shadow flex flex-col">
@@ -319,7 +302,6 @@ const TrainingResourcesPage = () => {
             ))}
           </div>
           
-          {/* Empty State */}
           {filteredResources.length === 0 && (
             <div className="text-center py-12">
               <Book className="mx-auto text-gray-400 mb-4" size={64} />
@@ -331,7 +313,6 @@ const TrainingResourcesPage = () => {
             </div>
           )}
           
-          {/* Call to Action */}
           <div className="mt-12 bg-gradient-to-r from-tz-green to-tz-blue rounded-lg p-8 text-white">
             <div className="flex flex-col md:flex-row items-center justify-between">
               <div className="mb-6 md:mb-0 md:mr-6">
