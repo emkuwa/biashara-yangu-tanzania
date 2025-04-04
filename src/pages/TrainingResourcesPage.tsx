@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { 
   Card, 
@@ -24,9 +25,9 @@ import { Book, ExternalLink, Search, Video, FileText, Wrench, Archive } from 'lu
 
 const TrainingResourcesPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('');
-  const [selectedType, setSelectedType] = useState('');
-  const [selectedLevel, setSelectedLevel] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [selectedType, setSelectedType] = useState('all');
+  const [selectedLevel, setSelectedLevel] = useState('all');
   const [selectedLanguage, setSelectedLanguage] = useState('');
   const [selectedCost, setSelectedCost] = useState('');
   const [filteredResources, setFilteredResources] = useState<TrainingResource[]>(trainingResources);
@@ -34,9 +35,9 @@ const TrainingResourcesPage = () => {
   useEffect(() => {
     const filtered = filterTrainingResources(
       searchTerm,
-      selectedCategory,
-      selectedType,
-      selectedLevel,
+      selectedCategory === 'all' ? '' : selectedCategory,
+      selectedType === 'all' ? '' : selectedType,
+      selectedLevel === 'all' ? '' : selectedLevel,
       selectedLanguage,
       selectedCost
     );
@@ -49,9 +50,9 @@ const TrainingResourcesPage = () => {
   
   const resetFilters = () => {
     setSearchTerm('');
-    setSelectedCategory('');
-    setSelectedType('');
-    setSelectedLevel('');
+    setSelectedCategory('all');
+    setSelectedType('all');
+    setSelectedLevel('all');
     setSelectedLanguage('');
     setSelectedCost('');
   };
@@ -131,7 +132,7 @@ const TrainingResourcesPage = () => {
                     <SelectValue placeholder="Kategoria" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">Kategoria Zote</SelectItem>
+                    <SelectItem value="all">Kategoria Zote</SelectItem>
                     {categories.map(category => (
                       <SelectItem key={category} value={category}>{category}</SelectItem>
                     ))}
@@ -145,7 +146,7 @@ const TrainingResourcesPage = () => {
                     <SelectValue placeholder="Aina" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">Aina Zote</SelectItem>
+                    <SelectItem value="all">Aina Zote</SelectItem>
                     <SelectItem value="Video">Video</SelectItem>
                     <SelectItem value="Article">Makala</SelectItem>
                     <SelectItem value="Course">Kozi</SelectItem>
@@ -161,7 +162,7 @@ const TrainingResourcesPage = () => {
                     <SelectValue placeholder="Kiwango" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">Viwango Vyote</SelectItem>
+                    <SelectItem value="all">Viwango Vyote</SelectItem>
                     <SelectItem value="Beginner">Mwanzo</SelectItem>
                     <SelectItem value="Intermediate">Kati</SelectItem>
                     <SelectItem value="Advanced">Juu</SelectItem>
@@ -176,6 +177,7 @@ const TrainingResourcesPage = () => {
               </div>
             </div>
             
+            {/* Language and cost filters */}
             <div className="flex flex-wrap gap-4 mt-4">
               <div className="flex items-center gap-2">
                 <span className="text-sm font-medium">Lugha:</span>
@@ -253,6 +255,7 @@ const TrainingResourcesPage = () => {
             </p>
           </div>
           
+          {/* Resource cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredResources.map(resource => (
               <Card key={resource.id} className="hover:shadow-lg transition-shadow flex flex-col">
@@ -302,6 +305,7 @@ const TrainingResourcesPage = () => {
             ))}
           </div>
           
+          {/* Empty state */}
           {filteredResources.length === 0 && (
             <div className="text-center py-12">
               <Book className="mx-auto text-gray-400 mb-4" size={64} />
@@ -313,6 +317,7 @@ const TrainingResourcesPage = () => {
             </div>
           )}
           
+          {/* Community banner */}
           <div className="mt-12 bg-gradient-to-r from-tz-green to-tz-blue rounded-lg p-8 text-white">
             <div className="flex flex-col md:flex-row items-center justify-between">
               <div className="mb-6 md:mb-0 md:mr-6">

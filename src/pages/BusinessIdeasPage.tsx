@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { 
@@ -35,9 +36,9 @@ const BusinessIdeasPage = () => {
   const location = useLocation();
   
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('all');
   const [capitalRange, setCapitalRange] = useState<[number, number]>([0, 10000000]);
-  const [selectedDifficulty, setSelectedDifficulty] = useState('');
+  const [selectedDifficulty, setSelectedDifficulty] = useState('all');
   const [filteredIdeas, setFilteredIdeas] = useState<BusinessIdea[]>(businessIdeas);
   const [currentView, setCurrentView] = useState<'grid' | 'list'>('grid');
   
@@ -45,9 +46,9 @@ const BusinessIdeasPage = () => {
   useEffect(() => {
     const filtered = filterBusinessIdeas(
       searchTerm,
-      selectedCategory,
+      selectedCategory === 'all' ? '' : selectedCategory,
       capitalRange,
-      selectedDifficulty || undefined
+      selectedDifficulty === 'all' ? undefined : selectedDifficulty
     );
     setFilteredIdeas(filtered);
   }, [searchTerm, selectedCategory, capitalRange, selectedDifficulty]);
@@ -80,9 +81,9 @@ const BusinessIdeasPage = () => {
   // Reset all filters
   const resetFilters = () => {
     setSearchTerm('');
-    setSelectedCategory('');
+    setSelectedCategory('all');
     setCapitalRange([0, 10000000]);
-    setSelectedDifficulty('');
+    setSelectedDifficulty('all');
   };
   
   // Get difficulty color
@@ -143,7 +144,7 @@ const BusinessIdeasPage = () => {
                   <SelectValue placeholder="Kategoria" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">Kategoria Zote</SelectItem>
+                  <SelectItem value="all">Kategoria Zote</SelectItem>
                   {categories.map(category => (
                     <SelectItem key={category} value={category}>{category}</SelectItem>
                   ))}
@@ -156,7 +157,7 @@ const BusinessIdeasPage = () => {
                   <SelectValue placeholder="Ugumu" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">Ugumu Wowote</SelectItem>
+                  <SelectItem value="all">Ugumu Wowote</SelectItem>
                   <SelectItem value="Rahisi">Rahisi</SelectItem>
                   <SelectItem value="Wastani">Wastani</SelectItem>
                   <SelectItem value="Ngumu">Ngumu</SelectItem>
