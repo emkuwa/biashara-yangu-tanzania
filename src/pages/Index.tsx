@@ -1,11 +1,10 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import NavBar from '@/components/NavBar';
 import Footer from '@/components/Footer';
-import { ArrowRight, Book, Briefcase, FileText, MessageSquare, Users, Text, Wallet, Share2, Globe, Award } from 'lucide-react';
+import { ArrowRight, Book, Briefcase, FileText, MessageSquare, Users, Text, Wallet, Share2, Globe, Award, FileCheck, Scale } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 
 const Index = () => {
@@ -20,7 +19,7 @@ const Index = () => {
         <section className="hero-pattern py-16 md:py-24">
           <div className="container mx-auto px-4 text-center">
             <h1 className="text-3xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-tz-green via-tz-blue to-tz-green bg-clip-text text-transparent">
-              Anza Biashara Yako Tanzania
+              Anzisha Biashara Yako Tanzania
             </h1>
             <p className="text-lg md:text-xl text-gray-700 mb-8 max-w-3xl mx-auto">
               Pata mawazo, miongozo, na rasilimali unazohitaji kuanza na kukuza biashara yako nchini Tanzania.
@@ -313,6 +312,75 @@ const Index = () => {
                   </Button>
                 </CardFooter>
               </Card>
+            </div>
+          </div>
+        </section>
+        
+        {/* Legal Procedures Section */}
+        <section className="py-16 bg-gray-50">
+          <div className="container mx-auto px-4">
+            <h2 className="text-2xl md:text-3xl font-bold mb-8 text-center">Taratibu za Kisheria za Kusajili Biashara Tanzania</h2>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-5xl mx-auto">
+              <div>
+                <h3 className="text-xl font-semibold mb-4 flex items-center">
+                  <FileCheck className="text-tz-green mr-3" size={24} />
+                  Hatua za Usajili wa Biashara
+                </h3>
+                <ol className="space-y-3 list-decimal pl-6">
+                  <li className="text-gray-700">
+                    <span className="font-medium text-gray-800">Usajili wa Jina la Biashara:</span> Sajili jina la biashara yako kupitia BRELA (Business Registrations and Licensing Agency).
+                  </li>
+                  <li className="text-gray-700">
+                    <span className="font-medium text-gray-800">Usajili wa Biashara/Kampuni:</span> Kusajili biashara yako kama biashara binafsi, ubia, kampuni, au ushirika.
+                  </li>
+                  <li className="text-gray-700">
+                    <span className="font-medium text-gray-800">Namba ya Mlipa Kodi (TIN):</span> Kuomba namba ya mlipa kodi kutoka Mamlaka ya Mapato Tanzania (TRA).
+                  </li>
+                  <li className="text-gray-700">
+                    <span className="font-medium text-gray-800">Leseni ya Biashara:</span> Kupata leseni ya biashara kutoka serikali za mitaa au wizara husika.
+                  </li>
+                  <li className="text-gray-700">
+                    <span className="font-medium text-gray-800">Leseni za Sekta:</span> Baadhi ya biashara zinahitaji leseni maalum kutoka mamlaka za sekta (kama vile TFDA, EWURA, TCRA, n.k.).
+                  </li>
+                  <li className="text-gray-700">
+                    <span className="font-medium text-gray-800">Usajili wa VAT:</span> Iwapo mzunguko wa biashara ni zaidi ya kiasi kilichowekwa kisheria, utahitaji kusajili kwa VAT.
+                  </li>
+                </ol>
+              </div>
+              
+              <div>
+                <h3 className="text-xl font-semibold mb-4 flex items-center">
+                  <Scale className="text-tz-blue mr-3" size={24} />
+                  Umuhimu wa Usajili wa Kisheria
+                </h3>
+                <ul className="space-y-3 list-disc pl-6">
+                  <li className="text-gray-700">
+                    <span className="font-medium text-gray-800">Ulinzi wa Kisheria:</span> Biashara iliyosajiliwa inapata ulinzi wa kisheria na inaweza kutetea haki zake mahakamani.
+                  </li>
+                  <li className="text-gray-700">
+                    <span className="font-medium text-gray-800">Kujenga Uaminifu:</span> Wateja na washirika wa biashara huwa na imani zaidi na biashara zilizosajiliwa.
+                  </li>
+                  <li className="text-gray-700">
+                    <span className="font-medium text-gray-800">Ufikiaji wa Mikopo:</span> Biashara iliyosajiliwa ina uwezo mkubwa wa kupata mikopo na ufadhili.
+                  </li>
+                  <li className="text-gray-700">
+                    <span className="font-medium text-gray-800">Kuepuka Faini na Adhabu:</span> Usajili husaidia kuepuka faini na adhabu zinazoweza kutolewa kwa biashara zisizosajiliwa.
+                  </li>
+                  <li className="text-gray-700">
+                    <span className="font-medium text-gray-800">Uwezekano wa Kukua:</span> Biashara iliyosajiliwa ina nafasi kubwa ya kukua, kupanuka, na kuajiri wafanyakazi.
+                  </li>
+                  <li className="text-gray-700">
+                    <span className="font-medium text-gray-800">Fursa za Serikali:</span> Kuwezesha ushiriki katika zabuni za serikali na fursa za kibiashara.
+                  </li>
+                </ul>
+              </div>
+            </div>
+            
+            <div className="mt-10 text-center">
+              <Button asChild className="bg-tz-blue hover:bg-blue-600 text-white">
+                <Link to={isAuthenticated ? "/msaada-kisheria" : "/sajili"}>Pata Usaidizi wa Usajili wa Biashara</Link>
+              </Button>
             </div>
           </div>
         </section>

@@ -58,7 +58,7 @@ const Footer = () => {
               Barua pepe: info@bisharayangu.co.tz
             </p>
             <p className="text-gray-600 text-sm">
-              Simu: +255 123 456 789
+              Simu: +255 716 002 790
             </p>
           </div>
         </div>
