@@ -23,7 +23,17 @@ export const categories = [
   'Usafirishaji',
   'Sanaa na Burudani',
   'Huduma',
-  'Biashara ndogo ndogo'
+  'Biashara ndogo ndogo',
+  'Mauzo ya Rejareja',
+  'Chakula & Vinywaji',
+  'Urembo & Afya',
+  'Huduma kwa Jamii',
+  'Ubunifu na Mitindo',
+  'Teknolojia na Kidigitali',
+  'Kilimo na Ufugaji',
+  'Ukarabati na Ufundi',
+  'Biashara za Mtandaoni',
+  'Elimu na Mafunzo'
 ];
 
 export const businessIdeas: BusinessIdea[] = [
@@ -331,39 +341,4 @@ export const businessIdeas: BusinessIdea[] = [
     ],
     tips: [
       "Anzisha kozi za ngazi tofauti",
-      "Toa vyeti kwa wahitimu",
-      "Saidia wanafunzi kupata kazi",
-      "Tengeneza ratiba inayowafaa wanafunzi wanaofanya kazi"
-    ],
-    businessPlan: "Mpango wa Biashara wa Ufundishaji wa Kompyuta:\n\n1. Utangulizi\nBiashara hii inalenga kuanzisha kituo cha kufundisha ujuzi wa kompyuta na programu mbalimbali za ofisi. Tutafundisha wanafunzi wa ngazi tofauti, kuanzia wanaoanza hadi wale wanaotaka ujuzi wa hali ya juu.\n\n2. Malengo\n- Kuanzisha kituo cha kisasa cha mafunzo ya kompyuta\n- Kutoa mtaala bora unaokidhi mahitaji ya soko la ajira\n- Kuwawezesha wanafunzi kupata ujuzi wa kisasa wa kompyuta\n- Kutoa vyeti vinavyotambuliwa na waajiri\n\n3. Uchambuzi wa Soko\nMahitaji ya ujuzi wa kompyuta yanaendelea kuongezeka katika ulimwengu wa kidijitali. Vijana wengi wanatafuta mafunzo ya kompyuta ili kuongeza ujuzi wao na kupata ajira.\n\n4. Mpango wa Mauzo\n- Kutangaza kozi kupitia mitandao ya kijamii\n- Kushirikiana na shule na vyuo kutangaza kozi zetu\n- Kutoa kozi maalum kwa makampuni na taasisi\n\n5. Mpango wa Fedha\n- Mtaji wa kuanzia: TZS 3,000,000\n- Matumizi ya kila mwezi: TZS 1,000,000\n- Matarajio ya mapato ya kila mwezi: TZS 2,500,000\n- Matarajio ya faida ya kila mwezi: TZS 1,500,000\n\n6. Mpango wa Uendeshaji\n- Kituo kitafunguliwa kila siku kazi kuanzia saa 2 asubuhi hadi saa 10 jioni\n- Kuajiri walimu 3 wenye ujuzi wa kompyuta\n- Kununua kompyuta 10 za kisasa\n- Kuandaa mtaala unaokidhi mahitaji ya soko la ajira"
-  }
-];
-
-export const filterBusinessIdeas = (
-  searchTerm: string = '',
-  selectedCategory: string = '',
-  capitalRange: [number, number] = [0, 10000000],
-  type?: string
-): BusinessIdea[] => {
-  return businessIdeas.filter(idea => {
-    // Filter by search term
-    const matchesSearch = searchTerm === '' || 
-      idea.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
-      idea.description.toLowerCase().includes(searchTerm.toLowerCase());
-    
-    // Filter by category
-    const matchesCategory = selectedCategory === '' || idea.category === selectedCategory;
-    
-    // Filter by capital range
-    const matchesCapital = idea.minCapital >= capitalRange[0] && idea.maxCapital <= capitalRange[1];
-    
-    // Filter by type
-    const matchesType = !type || idea.type === type;
-    
-    return matchesSearch && matchesCategory && matchesCapital && matchesType;
-  });
-};
-
-export const formatCurrency = (amount: number): string => {
-  return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " TZS";
-};
+      "Toa vyeti kwa wah

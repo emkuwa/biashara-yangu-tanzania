@@ -55,6 +55,31 @@ const App = () => (
                 <NameGeneratorPage />
               </AuthGuard>
             } />
+            <Route path="/mitandao" element={
+              <AuthGuard>
+                <NotFound />
+              </AuthGuard>
+            } />
+            <Route path="/biashara-mtandaoni" element={
+              <AuthGuard>
+                <NotFound />
+              </AuthGuard>
+            } />
+            <Route path="/fedha" element={
+              <AuthGuard>
+                <NotFound />
+              </AuthGuard>
+            } />
+            <Route path="/ujuzi-kidijitali" element={
+              <AuthGuard>
+                <NotFound />
+              </AuthGuard>
+            } />
+            <Route path="/changamoto" element={
+              <AuthGuard>
+                <NotFound />
+              </AuthGuard>
+            } />
             <Route path="/sajili" element={<RegisterPage />} />
             <Route path="/ingia" element={<LoginPage />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

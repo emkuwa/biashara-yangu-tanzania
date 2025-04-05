@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import NavBar from '@/components/NavBar';
 import Footer from '@/components/Footer';
-import { ArrowRight, Book, Briefcase, FileText, MessageSquare, Users, Text } from 'lucide-react';
+import { ArrowRight, Book, Briefcase, FileText, MessageSquare, Users, Text, Wallet, Share2, Globe, Award } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 
 const Index = () => {
@@ -77,7 +77,7 @@ const Index = () => {
                 </CardHeader>
                 <CardContent>
                   <p className="text-gray-700">
-                    Jukwaa letu la jamii linakupa nafasi ya kushiriki uzoefu wako, kuuliza maswali, na kujifunza kutoka kwa wajasiriamali wengine Tanzania.
+                    Jukwaa letu la jamii linakupa nafasi ya kushiriki uzoefu wako, kuuliza maswali, na kujifunza kutoka kwa wajasiriamali wengine Tanzania kupitia forums, group chats na vikundi vya WhatsApp/Facebook.
                   </p>
                 </CardContent>
                 <CardFooter>
@@ -182,6 +182,132 @@ const Index = () => {
                   <Button asChild variant="ghost" className="text-red-600 hover:text-red-600 hover:bg-red-50 p-0 flex items-center">
                     <Link to="/sajili" className="flex items-center">
                       <span>Jisajili Sasa</span>
+                      <ArrowRight size={16} className="ml-2" />
+                    </Link>
+                  </Button>
+                </CardFooter>
+              </Card>
+            </div>
+
+            {/* New Features Row */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
+              {/* Social Media Integration Card */}
+              <Card className="hover:shadow-lg transition-shadow">
+                <CardHeader>
+                  <div className="bg-green-100 w-12 h-12 rounded-full flex items-center justify-center mb-4">
+                    <Share2 className="text-green-600" size={24} />
+                  </div>
+                  <CardTitle>Ushirikiano wa Mitandao ya Kijamii</CardTitle>
+                  <CardDescription>Tangaza biashara yako na unganisha na wateja</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-gray-700">
+                    Jifunze kutumia WhatsApp, Instagram, na Facebook kwa ufanisi ili kufikia wateja zaidi na kutangaza bidhaa na huduma zako.
+                  </p>
+                </CardContent>
+                <CardFooter>
+                  <Button asChild variant="ghost" className="text-green-600 hover:text-green-600 hover:bg-green-50 p-0 flex items-center">
+                    <Link to={isAuthenticated ? "/mitandao" : "/sajili"} className="flex items-center">
+                      <span>Jifunze Zaidi</span>
+                      <ArrowRight size={16} className="ml-2" />
+                    </Link>
+                  </Button>
+                </CardFooter>
+              </Card>
+              
+              {/* Online Business Card */}
+              <Card className="hover:shadow-lg transition-shadow">
+                <CardHeader>
+                  <div className="bg-blue-100 w-12 h-12 rounded-full flex items-center justify-center mb-4">
+                    <Globe className="text-blue-600" size={24} />
+                  </div>
+                  <CardTitle>Fursa za Biashara Mtandaoni</CardTitle>
+                  <CardDescription>Anza biashara mtandaoni na e-commerce</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-gray-700">
+                    Pata mwongozo wa kuanzisha biashara ya e-commerce kupitia Jumia, Shopify, au freelancing kupitia Fiverr na Upwork.
+                  </p>
+                </CardContent>
+                <CardFooter>
+                  <Button asChild variant="ghost" className="text-blue-600 hover:text-blue-600 hover:bg-blue-50 p-0 flex items-center">
+                    <Link to={isAuthenticated ? "/biashara-mtandaoni" : "/sajili"} className="flex items-center">
+                      <span>Jifunze Zaidi</span>
+                      <ArrowRight size={16} className="ml-2" />
+                    </Link>
+                  </Button>
+                </CardFooter>
+              </Card>
+              
+              {/* Financial Management Card */}
+              <Card className="hover:shadow-lg transition-shadow">
+                <CardHeader>
+                  <div className="bg-yellow-100 w-12 h-12 rounded-full flex items-center justify-center mb-4">
+                    <Wallet className="text-yellow-600" size={24} />
+                  </div>
+                  <CardTitle>Usimamizi wa Fedha na Mikopo</CardTitle>
+                  <CardDescription>Jifunze kupanga na kusimamia fedha za biashara</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-gray-700">
+                    Pata mafunzo ya bajeti, usimamizi wa fedha, na taarifa muhimu kuhusu mikopo na misaada kwa vijana wajasiriamali.
+                  </p>
+                </CardContent>
+                <CardFooter>
+                  <Button asChild variant="ghost" className="text-yellow-600 hover:text-yellow-600 hover:bg-yellow-50 p-0 flex items-center">
+                    <Link to={isAuthenticated ? "/fedha" : "/sajili"} className="flex items-center">
+                      <span>Jifunze Zaidi</span>
+                      <ArrowRight size={16} className="ml-2" />
+                    </Link>
+                  </Button>
+                </CardFooter>
+              </Card>
+            </div>
+
+            {/* Final Features Row */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 mt-8">
+              {/* Digital Skills Card */}
+              <Card className="hover:shadow-lg transition-shadow">
+                <CardHeader>
+                  <div className="bg-purple-100 w-12 h-12 rounded-full flex items-center justify-center mb-4">
+                    <FileText className="text-purple-600" size={24} />
+                  </div>
+                  <CardTitle>Mafunzo ya Kazi za Kidijitali</CardTitle>
+                  <CardDescription>Jifunze ujuzi wa kidijitali kwa biashara ya kisasa</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-gray-700">
+                    Pata video na makala kuhusu biashara mtandaoni, affiliate marketing, content creation, na matumizi ya Google/Facebook Ads.
+                  </p>
+                </CardContent>
+                <CardFooter>
+                  <Button asChild variant="ghost" className="text-purple-600 hover:text-purple-600 hover:bg-purple-50 p-0 flex items-center">
+                    <Link to={isAuthenticated ? "/ujuzi-kidijitali" : "/sajili"} className="flex items-center">
+                      <span>Jifunze Zaidi</span>
+                      <ArrowRight size={16} className="ml-2" />
+                    </Link>
+                  </Button>
+                </CardFooter>
+              </Card>
+              
+              {/* Gamification Card */}
+              <Card className="hover:shadow-lg transition-shadow">
+                <CardHeader>
+                  <div className="bg-pink-100 w-12 h-12 rounded-full flex items-center justify-center mb-4">
+                    <Award className="text-pink-600" size={24} />
+                  </div>
+                  <CardTitle>Motisha na Ushindani</CardTitle>
+                  <CardDescription>Shiriki changamoto na shindana kupata tuzo</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-gray-700">
+                    Shiriki changamoto za biashara, mashindano ya ujasiriamali, na pata pointi za motisha kwa kukamilisha malengo ya biashara yako.
+                  </p>
+                </CardContent>
+                <CardFooter>
+                  <Button asChild variant="ghost" className="text-pink-600 hover:text-pink-600 hover:bg-pink-50 p-0 flex items-center">
+                    <Link to={isAuthenticated ? "/changamoto" : "/sajili"} className="flex items-center">
+                      <span>Shiriki Sasa</span>
                       <ArrowRight size={16} className="ml-2" />
                     </Link>
                   </Button>
