@@ -29,7 +29,7 @@ import {
   formatCurrency,
   type BusinessIdea
 } from '@/data/businessIdeas';
-import { Briefcase, CheckCircle, Search, FileText } from 'lucide-react';
+import { Briefcase, CheckCircle, Search } from 'lucide-react';
 
 const BusinessIdeasPage = () => {
   const navigate = useNavigate();
@@ -122,10 +122,8 @@ const BusinessIdeasPage = () => {
             </div>
           </div>
           
-          {/* Filters Section */}
           <div className="bg-white p-4 rounded-lg shadow mb-8">
             <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              {/* Search Input */}
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
                 <Input
@@ -137,7 +135,6 @@ const BusinessIdeasPage = () => {
                 />
               </div>
               
-              {/* Category Filter */}
               <Select value={selectedCategory} onValueChange={handleCategoryChange}>
                 <SelectTrigger>
                   <SelectValue placeholder="Kategoria" />
@@ -150,7 +147,6 @@ const BusinessIdeasPage = () => {
                 </SelectContent>
               </Select>
               
-              {/* Type Filter */}
               <Select value={selectedType} onValueChange={handleTypeChange}>
                 <SelectTrigger>
                   <SelectValue placeholder="Aina" />
@@ -163,13 +159,11 @@ const BusinessIdeasPage = () => {
                 </SelectContent>
               </Select>
               
-              {/* Reset Button */}
               <Button variant="outline" onClick={resetFilters}>
                 Ondoa Vigezo Vyote
               </Button>
             </div>
             
-            {/* Capital Range Slider */}
             <div className="mt-4">
               <p className="mb-2">Mtaji: {formatCurrency(capitalRange[0])} - {formatCurrency(capitalRange[1])}</p>
               <Slider
@@ -182,14 +176,12 @@ const BusinessIdeasPage = () => {
             </div>
           </div>
           
-          {/* Results Count */}
           <div className="mb-4">
             <p className="text-gray-600">
               Mawazo {filteredIdeas.length} yamepatikana
             </p>
           </div>
           
-          {/* Business Ideas Grid/List View */}
           {currentView === 'grid' ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredIdeas.map(idea => (
@@ -216,14 +208,6 @@ const BusinessIdeasPage = () => {
                           onClick={() => navigate(`/biashara/${idea.id}`)}
                         >
                           Angalia Zaidi
-                        </Button>
-                        <Button 
-                          className="w-full bg-tz-green hover:bg-green-600"
-                          variant="outline"
-                          onClick={() => navigate(`/biashara/${idea.id}?tab=mpango`)}
-                        >
-                          <FileText className="mr-2 h-4 w-4" />
-                          Mpango wa Biashara
                         </Button>
                       </div>
                     </div>
@@ -306,19 +290,12 @@ const BusinessIdeasPage = () => {
                           </ul>
                         </div>
                         
-                        <div className="mt-4 flex flex-col md:flex-row gap-3">
+                        <div className="mt-4">
                           <Button 
                             className="bg-tz-blue hover:bg-blue-600"
                             onClick={() => navigate(`/biashara/${idea.id}`)}
                           >
                             Angalia Zaidi
-                          </Button>
-                          <Button 
-                            className="bg-tz-green hover:bg-green-600"
-                            onClick={() => navigate(`/biashara/${idea.id}?tab=mpango`)}
-                          >
-                            <FileText className="mr-2 h-4 w-4" />
-                            Mpango wa Biashara
                           </Button>
                         </div>
                       </div>
@@ -329,7 +306,6 @@ const BusinessIdeasPage = () => {
             </div>
           )}
           
-          {/* Empty State */}
           {filteredIdeas.length === 0 && (
             <div className="text-center py-12">
               <Briefcase className="mx-auto text-gray-400 mb-4" size={64} />
