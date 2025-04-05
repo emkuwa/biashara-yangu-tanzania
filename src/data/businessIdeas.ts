@@ -1,4 +1,3 @@
-
 export interface BusinessIdea {
   id: string;
   title: string;
@@ -36,6 +35,39 @@ export const categories = [
   'Biashara za Mtandaoni',
   'Elimu na Mafunzo'
 ];
+
+export const formatCurrency = (amount: number): string => {
+  return new Intl.NumberFormat('sw-TZ', {
+    style: 'currency',
+    currency: 'TZS',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }).format(amount);
+};
+
+export const filterBusinessIdeas = (
+  searchTerm: string,
+  category: string,
+  capitalRange: [number, number],
+  type?: string
+): BusinessIdea[] => {
+  return businessIdeas.filter(idea => {
+    const matchesSearch = searchTerm === '' || 
+      idea.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      idea.description.toLowerCase().includes(searchTerm.toLowerCase());
+    
+    const matchesCategory = category === '' || idea.category === category;
+    
+    const matchesCapital = (
+      idea.minCapital <= capitalRange[1] && 
+      idea.maxCapital >= capitalRange[0]
+    );
+    
+    const matchesType = !type || idea.type === type;
+    
+    return matchesSearch && matchesCategory && matchesCapital && matchesType;
+  });
+};
 
 export const businessIdeas: BusinessIdea[] = [
   {
@@ -253,7 +285,7 @@ export const businessIdeas: BusinessIdea[] = [
       "Kuwa mwaminifu kuhusu gharama",
       "Toa hakikisho kwa kazi zako"
     ],
-    businessPlan: "Mpango wa Biashara wa Kituo cha Marekebisho ya Simu:\n\n1. Utangulizi\nBiashara hii inalenga kutoa huduma za marekebisho ya simu za mkononi na kuuza vipuri na vifaa vya simu. Tutakuwa kituo cha kutatua matatizo yote ya simu za mkononi.\n\n2. Malengo\n- Kuanzisha kituo cha kisasa cha marekebisho ya simu\n- Kutoa huduma bora na za haraka\n- Kuwa na wafanyakazi wenye ujuzi wa hali ya juu\n- Kuuza vipuri na vifaa vya simu vya ubora wa juu\n\n3. Uchambuzi wa Soko\nMahitaji ya huduma za marekebisho ya simu yanaendelea kuongezeka kadri idadi ya watumiaji wa simu za mkononi inavyoongezeka. Simu nyingi zinahitaji marekebisho mara kwa mara.\n\n4. Mpango wa Mauzo\n- Kutoa bei nafuu na huduma za haraka\n- Kutangaza huduma kupitia mitandao ya kijamii\n- Kutoa hakikisho kwa kazi zetu\n\n5. Mpango wa Fedha\n- Mtaji wa kuanzia: TZS 3,000,000\n- Matumizi ya kila mwezi: TZS 1,000,000\n- Matarajio ya mapato ya kila mwezi: TZS 4,000,000\n- Matarajio ya faida ya kila mwezi: TZS 3,000,000\n\n6. Mpango wa Uendeshaji\n- Kituo kitafunguliwa kila siku kuanzia saa 2 asubuhi hadi saa 12 jioni\n- Kuajiri wafanyakazi 3 wenye ujuzi wa marekebisho ya simu\n- Kununua vifaa vya kisasa vya marekebisho ya simu\n- Kuweka akiba ya vipuri vya simu vinavyotumika sana"
+    businessPlan: "Mpango wa Biashara wa Kituo cha Marekebisho ya Simu:\n\n1. Utangulizi\nBiashara hii inalenga kutoa huduma za marekebisho ya simu za mkononi na kuuza vipuri na vifaa vya simu. Tutakuwa kituo cha kutatua matatizo yote ya simu za mkononi.\n\n2. Malengo\n- Kuanzisha kituo cha kisasa cha marekebisho ya simu\n- Kutoa huduma bora na za haraka\n- Kuwa na wafanyakazi wenye ujuzi wa hali ya juu\n- Kuuza vipuri na vifaa vya simu vya ubora wa juu\n\n3. Uchambuzi wa Soko\nMahitaji ya huduma za marekebisho ya simu yanaendelea kuongezeka kadri idadi ya watumiaji wa simu za mkononi inavyoongezeka. Simu nyingi zinahitaji marekebisho mara kwa mara.\n\n4. Mpango wa Mauzo\n- Kutoa bei nafuu na huduma za haraka\n- Kutangaza huduma kupitia mitandao ya kijamii\n- Kutoa hakikisho kwa kazi zetu\n\n5. Mpango wa Fedha\n- Mtaji wa kuanzia: TZS 3,000,000\n- Matumizi ya kila mwezi: TZS 1,000,000\n- Matarajio ya mapato ya kila mwezi: TZS 4,000,000\n- Matarajio ya faida ya kila mwezi: TZS 3,000,000\n\n6. Mpango wa Uendeshaji\n- Kituo kitafunguliwa kila siku kazi kuanzia saa 2 asubuhi hadi saa 12 jioni\n- Kuajiri wafanyakazi 3 wenye ujuzi wa marekebisho ya simu\n- Kununua vifaa vya kisasa vya marekebisho ya simu\n- Kuweka akiba ya vipuri vya simu vinavyotumika sana"
   },
   {
     id: "8",
@@ -349,4 +381,3 @@ export const businessIdeas: BusinessIdea[] = [
     businessPlan: "Mpango wa Biashara wa Ufundishaji wa Kompyuta:\n\n1. Utangulizi\nBiashara hii inalenga kutoa mafunzo ya kompyuta na teknolojia kwa watu katika jamii. Tutafundisha ujuzi wa msingi na wa kati wa kompyuta, programu za ofisi, na ujuzi mwingine wa kidijitali.\n\n2. Malengo\n- Kuanzisha kituo cha mafunzo ya kompyuta\n- Kufundisha ujuzi wa kidijitali kwa wanajamii\n- Kuwawezesha vijana kupata ajira au kujiajiri\n- Kukabiliana na pengo la kidijitali katika jamii\n\n3. Uchambuzi wa Soko\nUjuzi wa kompyuta umekuwa muhimu sana katika ulimwengu wa leo. Kuna uhitaji mkubwa wa mafunzo ya kompyuta kwa watu wa rika zote. Vijana wanahitaji ujuzi huu kwa ajili ya ajira, wakati watu wazima wanahitaji kuboresha ujuzi wao wa kidijitali.\n\n4. Mpango wa Mauzo\n- Kutangaza kozi zetu kupitia mitandao ya kijamii\n- Kushirikiana na shule na taasisi za elimu\n- Kutoa ofa maalum kwa makundi ya wanafunzi\n\n5. Mpango wa Fedha\n- Mtaji wa kuanzia: TZS 3,000,000\n- Matumizi ya kila mwezi: TZS 1,000,000\n- Matarajio ya mapato ya kila mwezi: TZS 2,500,000\n- Matarajio ya faida ya kila mwezi: TZS 1,500,000\n\n6. Mpango wa Uendeshaji\n- Kituo kitafunguliwa kila siku kuanzia saa 2 asubuhi hadi saa 12 jioni\n- Kuajiri walimu 2 wenye ujuzi wa kompyuta\n- Kupanga kozi za siku 2-3 kwa wiki kwa kila kundi\n- Kutoa mafunzo ya MS Office, graphic design, na ujuzi wa msingi wa kompyuta"
   }
 ];
-
