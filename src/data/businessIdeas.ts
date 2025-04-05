@@ -1,3 +1,4 @@
+
 export interface BusinessIdea {
   id: string;
   title: string;
@@ -341,4 +342,11 @@ export const businessIdeas: BusinessIdea[] = [
     ],
     tips: [
       "Anzisha kozi za ngazi tofauti",
-      "Toa vyeti kwa wah
+      "Toa vyeti kwa wahitimu wa kozi",
+      "Weka bei inayoendana na uwezo wa watu katika eneo lako",
+      "Toa kozi za jioni kwa watu wanaofanya kazi"
+    ],
+    businessPlan: "Mpango wa Biashara wa Ufundishaji wa Kompyuta:\n\n1. Utangulizi\nBiashara hii inalenga kutoa mafunzo ya kompyuta na teknolojia kwa watu katika jamii. Tutafundisha ujuzi wa msingi na wa kati wa kompyuta, programu za ofisi, na ujuzi mwingine wa kidijitali.\n\n2. Malengo\n- Kuanzisha kituo cha mafunzo ya kompyuta\n- Kufundisha ujuzi wa kidijitali kwa wanajamii\n- Kuwawezesha vijana kupata ajira au kujiajiri\n- Kukabiliana na pengo la kidijitali katika jamii\n\n3. Uchambuzi wa Soko\nUjuzi wa kompyuta umekuwa muhimu sana katika ulimwengu wa leo. Kuna uhitaji mkubwa wa mafunzo ya kompyuta kwa watu wa rika zote. Vijana wanahitaji ujuzi huu kwa ajili ya ajira, wakati watu wazima wanahitaji kuboresha ujuzi wao wa kidijitali.\n\n4. Mpango wa Mauzo\n- Kutangaza kozi zetu kupitia mitandao ya kijamii\n- Kushirikiana na shule na taasisi za elimu\n- Kutoa ofa maalum kwa makundi ya wanafunzi\n\n5. Mpango wa Fedha\n- Mtaji wa kuanzia: TZS 3,000,000\n- Matumizi ya kila mwezi: TZS 1,000,000\n- Matarajio ya mapato ya kila mwezi: TZS 2,500,000\n- Matarajio ya faida ya kila mwezi: TZS 1,500,000\n\n6. Mpango wa Uendeshaji\n- Kituo kitafunguliwa kila siku kuanzia saa 2 asubuhi hadi saa 12 jioni\n- Kuajiri walimu 2 wenye ujuzi wa kompyuta\n- Kupanga kozi za siku 2-3 kwa wiki kwa kila kundi\n- Kutoa mafunzo ya MS Office, graphic design, na ujuzi wa msingi wa kompyuta"
+  }
+];
+
