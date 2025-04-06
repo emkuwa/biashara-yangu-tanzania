@@ -169,7 +169,7 @@ const ChatbotPage = () => {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             {/* Sidebar */}
             <div className="md:col-span-1">
-              <Card>
+              <Card className="h-full">
                 <CardHeader>
                   <CardTitle className="flex items-center">
                     <Bot className="mr-2 text-tz-blue" />
@@ -187,7 +187,7 @@ const ChatbotPage = () => {
                         <Button 
                           key={index} 
                           variant="outline" 
-                          className="w-full justify-start text-left h-auto py-2 text-sm"
+                          className="w-full justify-start text-left h-auto py-2 text-sm break-words whitespace-normal"
                           onClick={() => handleSuggestedQuestion(question)}
                         >
                           {question}

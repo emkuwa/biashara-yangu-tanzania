@@ -4,8 +4,12 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import NavBar from '@/components/NavBar';
 import Footer from '@/components/Footer';
-import { ArrowRight, Book, Briefcase, FileText, MessageSquare, Users, Text, Wallet, Share2, Globe, Award, FileCheck, Scale } from 'lucide-react';
+import { 
+  ArrowRight, Book, Briefcase, FileText, MessageSquare, Users, Text, 
+  Wallet, Share2, Globe, Award, FileCheck, Scale, ExternalLink, ShoppingCart
+} from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
+import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from "@/components/ui/carousel";
 
 const Index = () => {
   const { isAuthenticated } = useAuth();
@@ -15,34 +19,85 @@ const Index = () => {
       <NavBar />
       
       <main className="flex-grow">
-        {/* Hero Section */}
-        <section className="hero-pattern py-16 md:py-24">
-          <div className="container mx-auto px-4 text-center">
-            <h1 className="text-3xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-tz-green via-tz-blue to-tz-green bg-clip-text text-transparent">
+        {/* Hero Section with Background Image */}
+        <section className="py-16 md:py-24 bg-cover bg-center relative" style={{backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url("https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=2671&auto=format&fit=crop")', height: '600px'}}>
+          <div className="container mx-auto px-4 text-center relative z-10">
+            <h1 className="text-3xl md:text-5xl font-bold mb-6 text-white">
               Anzisha Biashara Yako Tanzania
             </h1>
-            <p className="text-lg md:text-xl text-gray-700 mb-8 max-w-3xl mx-auto">
+            <p className="text-lg md:text-xl text-white mb-8 max-w-3xl mx-auto">
               Pata mawazo, miongozo, na rasilimali unazohitaji kuanza na kukuza biashara yako nchini Tanzania.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               <Button asChild className="bg-tz-green hover:bg-green-600 text-white font-medium text-lg px-6 py-5 rounded-md">
                 <Link to="/biashara">Tazama Mawazo ya Biashara</Link>
               </Button>
-              <Button asChild variant="outline" className="border-tz-blue text-tz-blue hover:bg-blue-50 font-medium text-lg px-6 py-5 rounded-md">
+              <Button asChild variant="outline" className="border-white text-white hover:bg-white hover:text-tz-blue font-medium text-lg px-6 py-5 rounded-md">
                 <Link to={isAuthenticated ? "/chatbot" : "/sajili"}>Pata Ushauri wa Biashara</Link>
               </Button>
             </div>
           </div>
         </section>
         
+        {/* Carousel Section */}
+        <section className="py-10 bg-gray-50">
+          <div className="container mx-auto px-4">
+            <h2 className="text-2xl md:text-3xl font-bold mb-6 text-center">Mafanikio ya Wajasiriamali</h2>
+            
+            <Carousel className="w-full max-w-4xl mx-auto">
+              <CarouselContent>
+                <CarouselItem className="md:basis-1/2 lg:basis-1/2">
+                  <div className="p-4">
+                    <Card className="overflow-hidden">
+                      <div className="h-40 bg-cover bg-center" style={{backgroundImage: "url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=2670&auto=format&fit=crop')"}}></div>
+                      <CardContent className="p-6">
+                        <h3 className="text-xl font-bold mb-2">Maria Joseph</h3>
+                        <p className="text-gray-600">Mkulima wa Kilimo cha Kisasa - Arusha</p>
+                        <p className="mt-4">"Kupitia rasilimali za Biashara Yangu, nimeweza kubadilisha kilimo changu kuwa cha kisasa na kupata masoko bora."</p>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </CarouselItem>
+                <CarouselItem className="md:basis-1/2 lg:basis-1/2">
+                  <div className="p-4">
+                    <Card className="overflow-hidden">
+                      <div className="h-40 bg-cover bg-center" style={{backgroundImage: "url('https://images.unsplash.com/photo-1531384441138-2736e62e0919?q=80&w=2487&auto=format&fit=crop')"}}></div>
+                      <CardContent className="p-6">
+                        <h3 className="text-xl font-bold mb-2">John Mbwambo</h3>
+                        <p className="text-gray-600">Mwanzilishi wa Tech Startup - Dar es Salaam</p>
+                        <p className="mt-4">"Mafunzo ya biashara mtandaoni yamenisaidia kupata wateja wa kimataifa na kukuza biashara yangu."</p>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </CarouselItem>
+                <CarouselItem className="md:basis-1/2 lg:basis-1/2">
+                  <div className="p-4">
+                    <Card className="overflow-hidden">
+                      <div className="h-40 bg-cover bg-center" style={{backgroundImage: "url('https://images.unsplash.com/photo-1539701938214-0d9736e1c16b?q=80&w=2515&auto=format&fit=crop')"}}></div>
+                      <CardContent className="p-6">
+                        <h3 className="text-xl font-bold mb-2">Rehema Salim</h3>
+                        <p className="text-gray-600">Mjasiriamali wa Nguo - Mwanza</p>
+                        <p className="mt-4">"Kupitia ushauri wa biashara, nimeweza kupata mikopo na kuongeza wafanyakazi wangu kutoka 2 hadi 15 katika miezi 6 tu."</p>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </CarouselItem>
+              </CarouselContent>
+              <CarouselPrevious className="left-2" />
+              <CarouselNext className="right-2" />
+            </Carousel>
+          </div>
+        </section>
+        
         {/* Feature Cards */}
         <section className="py-16 bg-white">
           <div className="container mx-auto px-4">
-            <h2 className="text-2xl md:text-3xl font-bold mb-12 text-center">Tunatoa Nini</h2>
+            <h2 className="text-2xl md:text-3xl font-bold mb-12 text-center">Huduma Zetu</h2>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {/* Business Ideas Card */}
-              <Card className="hover:shadow-lg transition-shadow">
+              <Card className="hover:shadow-lg transition-shadow overflow-hidden">
+                <div className="h-40 bg-cover bg-center" style={{backgroundImage: "url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=2670&auto=format&fit=crop')"}}></div>
                 <CardHeader>
                   <div className="bg-green-100 w-12 h-12 rounded-full flex items-center justify-center mb-4">
                     <Briefcase className="text-tz-green" size={24} />
@@ -66,7 +121,8 @@ const Index = () => {
               </Card>
               
               {/* Community Card */}
-              <Card className="hover:shadow-lg transition-shadow">
+              <Card className="hover:shadow-lg transition-shadow overflow-hidden">
+                <div className="h-40 bg-cover bg-center" style={{backgroundImage: "url('https://images.unsplash.com/photo-1543269865-cbf427effbad?q=80&w=2670&auto=format&fit=crop')"}}></div>
                 <CardHeader>
                   <div className="bg-blue-100 w-12 h-12 rounded-full flex items-center justify-center mb-4">
                     <Users className="text-tz-blue" size={24} />
@@ -90,7 +146,8 @@ const Index = () => {
               </Card>
               
               {/* Training Card */}
-              <Card className="hover:shadow-lg transition-shadow">
+              <Card className="hover:shadow-lg transition-shadow overflow-hidden">
+                <div className="h-40 bg-cover bg-center" style={{backgroundImage: "url('https://images.unsplash.com/photo-1517486808906-6ca8b3f8e1c1?q=80&w=2574&auto=format&fit=crop')"}}></div>
                 <CardHeader>
                   <div className="bg-yellow-100 w-12 h-12 rounded-full flex items-center justify-center mb-4">
                     <Book className="text-tz-gold" size={24} />
@@ -309,6 +366,234 @@ const Index = () => {
                       <span>Shiriki Sasa</span>
                       <ArrowRight size={16} className="ml-2" />
                     </Link>
+                  </Button>
+                </CardFooter>
+              </Card>
+            </div>
+          </div>
+        </section>
+        
+        {/* Wholesale Market Section */}
+        <section className="py-16 bg-white border-t">
+          <div className="container mx-auto px-4">
+            <h2 className="text-2xl md:text-3xl font-bold mb-8 text-center">Masoko ya Bidhaa za Jumla</h2>
+            <p className="text-center text-gray-700 mb-12 max-w-3xl mx-auto">
+              Tazama orodha ya wazalishaji na wasambazaji wakubwa wa bidhaa mbalimbali nchini Tanzania
+            </p>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <Card className="hover:shadow-lg transition-shadow">
+                <div className="h-40 bg-cover bg-center" style={{backgroundImage: "url('https://images.unsplash.com/photo-1607113182378-15a508ce2fff?q=80&w=2667&auto=format&fit=crop')"}}></div>
+                <CardHeader>
+                  <CardTitle>Vifaa vya Ujenzi</CardTitle>
+                  <CardDescription>Saruji, nondo, mbao, matofali na zaidi</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <ul className="space-y-2 list-disc pl-5">
+                    <li>Twiga Cement - Bei nafuu kwa wanunuzi wa jumla</li>
+                    <li>Dangote Cement - Usafirishaji bure kwa zaidi ya mifuko 100</li>
+                    <li>Nyumba Bora Hardware - Vifaa vyote vya ujenzi mahali pamoja</li>
+                  </ul>
+                </CardContent>
+                <CardFooter>
+                  <Button variant="outline" className="w-full">Wasiliana Nao</Button>
+                </CardFooter>
+              </Card>
+              
+              <Card className="hover:shadow-lg transition-shadow">
+                <div className="h-40 bg-cover bg-center" style={{backgroundImage: "url('https://images.unsplash.com/photo-1576995033264-0ff725741128?q=80&w=2670&auto=format&fit=crop')"}}></div>
+                <CardHeader>
+                  <CardTitle>Bidhaa za Kilimo</CardTitle>
+                  <CardDescription>Mbegu, mbolea, madawa na zana za kilimo</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <ul className="space-y-2 list-disc pl-5">
+                    <li>Balton Tanzania - Mbegu bora za mazao mbalimbali</li>
+                    <li>Yara Tanzania - Mbolea na ushauri wa kitaalamu</li>
+                    <li>ETG Inputs - Bei nafuu kwa vikundi vya wakulima</li>
+                  </ul>
+                </CardContent>
+                <CardFooter>
+                  <Button variant="outline" className="w-full">Wasiliana Nao</Button>
+                </CardFooter>
+              </Card>
+              
+              <Card className="hover:shadow-lg transition-shadow">
+                <div className="h-40 bg-cover bg-center" style={{backgroundImage: "url('https://images.unsplash.com/photo-1434389677669-e08b4cac3105?q=80&w=2649&auto=format&fit=crop')"}}></div>
+                <CardHeader>
+                  <CardTitle>Bidhaa za Rejareja</CardTitle>
+                  <CardDescription>Vyakula, vinywaji, vipodozi na zaidi</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <ul className="space-y-2 list-disc pl-5">
+                    <li>Njombe Food Supplies - Chakula cha kiwanda kwa rejareja</li>
+                    <li>Beauty Plus - Vipodozi na bidhaa za usafi kwa jumla</li>
+                    <li>Dar Wholesale Market - Kituo kikuu cha bidhaa za rejareja</li>
+                  </ul>
+                </CardContent>
+                <CardFooter>
+                  <Button variant="outline" className="w-full">Wasiliana Nao</Button>
+                </CardFooter>
+              </Card>
+            </div>
+          </div>
+        </section>
+        
+        {/* Advertising Section */}
+        <section className="py-10 bg-gray-50">
+          <div className="container mx-auto px-4">
+            <h2 className="text-2xl md:text-3xl font-bold mb-6 text-center">Matangazo ya Wadau</h2>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {/* Sponsored Ad 1 */}
+              <Card className="bg-gradient-to-br from-blue-50 to-white border-blue-200 hover:shadow-md transition-all">
+                <CardHeader className="pb-2">
+                  <div className="flex justify-between items-start">
+                    <CardTitle className="text-tz-blue">NMB Bank</CardTitle>
+                    <Badge className="bg-yellow-500 text-white">Mdhamini</Badge>
+                  </div>
+                  <CardDescription>Mikopo ya Biashara</CardDescription>
+                </CardHeader>
+                <CardContent className="pb-2">
+                  <div className="h-32 bg-cover bg-center rounded-md mb-4" style={{backgroundImage: "url('https://images.unsplash.com/photo-1601597111158-2fceff292cdc?q=80&w=2670&auto=format&fit=crop')"}}></div>
+                  <p className="text-gray-700 text-sm">
+                    Pata mikopo nafuu kwa biashara ndogo na za kati kupitia NMB. Tunatoa riba ndogo na muda mrefu wa malipo.
+                  </p>
+                </CardContent>
+                <CardFooter>
+                  <Button className="w-full bg-tz-blue hover:bg-blue-700">Wasiliana Nao</Button>
+                </CardFooter>
+              </Card>
+              
+              {/* Sponsored Ad 2 */}
+              <Card className="bg-gradient-to-br from-green-50 to-white border-green-200 hover:shadow-md transition-all">
+                <CardHeader className="pb-2">
+                  <div className="flex justify-between items-start">
+                    <CardTitle className="text-tz-green">Vodacom Tanzania</CardTitle>
+                    <Badge className="bg-yellow-500 text-white">Mdhamini</Badge>
+                  </div>
+                  <CardDescription>M-Pesa kwa Biashara</CardDescription>
+                </CardHeader>
+                <CardContent className="pb-2">
+                  <div className="h-32 bg-cover bg-center rounded-md mb-4" style={{backgroundImage: "url('https://images.unsplash.com/photo-1556741533-6e6a62bd8b49?q=80&w=2670&auto=format&fit=crop')"}}></div>
+                  <p className="text-gray-700 text-sm">
+                    Rahisisha malipo ya biashara yako na M-Pesa Biashara. Pokea malipo, lipa wafanyakazi na wauzaji bila adha.
+                  </p>
+                </CardContent>
+                <CardFooter>
+                  <Button className="w-full bg-tz-green hover:bg-green-700">Jisajili Sasa</Button>
+                </CardFooter>
+              </Card>
+              
+              {/* Sponsored Ad 3 */}
+              <Card className="bg-gradient-to-br from-orange-50 to-white border-orange-200 hover:shadow-md transition-all">
+                <CardHeader className="pb-2">
+                  <div className="flex justify-between items-start">
+                    <CardTitle className="text-orange-600">TIB Development Bank</CardTitle>
+                    <Badge className="bg-yellow-500 text-white">Mdhamini</Badge>
+                  </div>
+                  <CardDescription>Mikopo ya Maendeleo</CardDescription>
+                </CardHeader>
+                <CardContent className="pb-2">
+                  <div className="h-32 bg-cover bg-center rounded-md mb-4" style={{backgroundImage: "url('https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=80&w=2670&auto=format&fit=crop')"}}></div>
+                  <p className="text-gray-700 text-sm">
+                    TIB inatoa mikopo ya muda mrefu kwa vijana wajasiriamali. Riba nafuu na masharti nafuu kwa biashara zinazoanza.
+                  </p>
+                </CardContent>
+                <CardFooter>
+                  <Button className="w-full bg-orange-600 hover:bg-orange-700">Tuma Maombi</Button>
+                </CardFooter>
+              </Card>
+            </div>
+          </div>
+        </section>
+        
+        {/* Important Links Section */}
+        <section className="py-12 bg-white border-t">
+          <div className="container mx-auto px-4">
+            <h2 className="text-2xl md:text-3xl font-bold mb-8 text-center">Tovuti Muhimu</h2>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <Card className="hover:shadow-md transition-all">
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-lg flex items-center">
+                    <FileCheck className="mr-2 text-tz-blue" size={20} />
+                    BRELA
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="pb-3">
+                  <p className="text-sm text-gray-700">
+                    Sajili biashara yako, kampuni au leseni ya biashara kupitia BRELA.
+                  </p>
+                </CardContent>
+                <CardFooter>
+                  <Button variant="outline" className="w-full" asChild>
+                    <a href="https://www.brela.go.tz" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center">
+                      Tembelea <ExternalLink size={16} className="ml-2" />
+                    </a>
+                  </Button>
+                </CardFooter>
+              </Card>
+              
+              <Card className="hover:shadow-md transition-all">
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-lg flex items-center">
+                    <Scale className="mr-2 text-tz-green" size={20} />
+                    TRA
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="pb-3">
+                  <p className="text-sm text-gray-700">
+                    Taarifa kuhusu kodi, TIN na masuala mengine ya kikodi kwa biashara.
+                  </p>
+                </CardContent>
+                <CardFooter>
+                  <Button variant="outline" className="w-full" asChild>
+                    <a href="https://www.tra.go.tz" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center">
+                      Tembelea <ExternalLink size={16} className="ml-2" />
+                    </a>
+                  </Button>
+                </CardFooter>
+              </Card>
+              
+              <Card className="hover:shadow-md transition-all">
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-lg flex items-center">
+                    <Wallet className="mr-2 text-tz-gold" size={20} />
+                    NEEC
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="pb-3">
+                  <p className="text-sm text-gray-700">
+                    Baraza la Taifa la Uwezeshaji Wananchi Kiuchumi - mafunzo na mikopo.
+                  </p>
+                </CardContent>
+                <CardFooter>
+                  <Button variant="outline" className="w-full" asChild>
+                    <a href="https://www.neec.go.tz" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center">
+                      Tembelea <ExternalLink size={16} className="ml-2" />
+                    </a>
+                  </Button>
+                </CardFooter>
+              </Card>
+              
+              <Card className="hover:shadow-md transition-all">
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-lg flex items-center">
+                    <ShoppingCart className="mr-2 text-purple-600" size={20} />
+                    SIDO
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="pb-3">
+                  <p className="text-sm text-gray-700">
+                    Shirika la Kuhudumia Viwanda Vidogo Tanzania - usaidizi kwa wajasiriamali.
+                  </p>
+                </CardContent>
+                <CardFooter>
+                  <Button variant="outline" className="w-full" asChild>
+                    <a href="https://www.sido.go.tz" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center">
+                      Tembelea <ExternalLink size={16} className="ml-2" />
+                    </a>
                   </Button>
                 </CardFooter>
               </Card>
